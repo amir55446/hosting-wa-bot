@@ -544,11 +544,7 @@ cleanAllAudio(); // ✅ مسح أي ملفات صوتية متبقية من تش
 const chromePath = getChromePath();
 
 const client = new Client({
-  authStrategy: new LocalAuth({
-    clientId : 'group-manager-bot',
-    // ✅ Railway: لازم يتحفظ في الـ Volume عشان ما يتمسحش عند كل deploy
-    dataPath : process.env.DATA_DIR || '.',
-  }),
+  authStrategy: new LocalAuth({ clientId: 'group-manager-bot' }),
   puppeteer: {
     headless: true,
     ...(chromePath && { executablePath: chromePath }),
@@ -1483,4 +1479,8 @@ ${nums}
   if (text === 'تفعيل الصلاة') {
     botSettings.prayerEnabled = true; saveSettings();
     fetchPrayerTimes();
-    
+    await selfReply(msg, '✅ تم تفعيل إشعارات أوقات الصلاة');
+    return;
+  }
+  if (text === 'تعطيل الصلاة') {
+    botSettings.pr
