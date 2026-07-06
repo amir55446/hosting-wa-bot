@@ -14,7 +14,7 @@ const https = require('https');
 // ⚙️  إعدادات البوت
 // ============================================================
 // ✅ Railway: اضبط المتغيرات دي في Settings → Variables
-const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201070645088').replace(/[^0-9]/g, '');
+const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201034933807').replace(/[^0-9]/g, '');
 const BROKER_NUMBER = (process.env.BROKER_NUMBER || '201157784851').replace(/[^0-9]/g, '');
 
 const CONFIG = {
@@ -557,8 +557,6 @@ const client = new Client({
       '--disable-gpu', '--disable-extensions', '--disable-default-apps',
       '--disable-sync', '--disable-translate', '--no-first-run',
       '--ignore-certificate-errors', '--window-size=800,600',
-      '--single-process', '--no-zygote',
-      '--disable-features=Translate,BackForwardCache,site-per-process',
       '--disable-crash-reporter', '--disable-breakpad',
     ],
     defaultViewport: { width: 800, height: 600 },
