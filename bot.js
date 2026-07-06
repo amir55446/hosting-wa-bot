@@ -14,7 +14,7 @@ const https = require('https');
 // ⚙️  إعدادات البوت
 // ============================================================
 // ✅ Railway: اضبط المتغيرات دي في Settings → Variables
-const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201034933807').replace(/[^0-9]/g, '');
+const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201070645088').replace(/[^0-9]/g, '');
 const BROKER_NUMBER = (process.env.BROKER_NUMBER || '201157784851').replace(/[^0-9]/g, '');
 
 const CONFIG = {
@@ -2384,11 +2384,27 @@ const loadTimer = setInterval(() => {
 }, 600);
 
 const os = require('os');
-console.log(`🧠 الرام: متاح ${(os.freemem() / 1024 / 1024).toFixed(0)}MB / إجمالي ${(os.totalmem() / 1024 / 1024).toFixed(0)}MB`);
+function getCgroupMemory() {
+  const fs = require('fs');
+  try {
+    const limit = fs.readFileSync('/sys/fs/cgroup/memory.max', 'utf8').trim();
+    const current = fs.readFileSync('/sys/fs/cgroup/memory.current', 'utf8').trim();
+    return `حد الكونتينر: ${limit === 'max' ? 'غير محدود' : (parseInt(limit) / 1024 / 1024).toFixed(0) + 'MB'} / مستخدم حاليًا: ${(parseInt(current) / 1024 / 1024).toFixed(0)}MB`;
+  } catch (e) {
+    try {
+      const limit = fs.readFileSync('/sys/fs/cgroup/memory/memory.limit_in_bytes', 'utf8').trim();
+      const current = fs.readFileSync('/sys/fs/cgroup/memory/memory.usage_in_bytes', 'utf8').trim();
+      return `حد الكونتينر (v1): ${(parseInt(limit) / 1024 / 1024).toFixed(0)}MB / مستخدم حاليًا: ${(parseInt(current) / 1024 / 1024).toFixed(0)}MB`;
+    } catch (e2) {
+      return `مش قادر أقرا حدود الكونتينر: ${e2.message}`;
+    }
+  }
+}
+console.log(`🧠 ${getCgroupMemory()}`);
 
 client.initialize().catch(err => {
   console.error('❌ فشل تشغيل البوت:', err.message);
-  console.error(`🧠 الرام وقت الفشل: متاح ${(os.freemem() / 1024 / 1024).toFixed(0)}MB / إجمالي ${(os.totalmem() / 1024 / 1024).toFixed(0)}MB`);
+  console.error(`🧠 وقت الفشل: ${getCgroupMemory()}`);
   process.exit(1);
 });
 
