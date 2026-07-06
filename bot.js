@@ -2383,8 +2383,12 @@ const loadTimer = setInterval(() => {
   if (ld === 3) li = (li + 1) % loadMsgs.length;
 }, 600);
 
+const os = require('os');
+console.log(`🧠 الرام: متاح ${(os.freemem() / 1024 / 1024).toFixed(0)}MB / إجمالي ${(os.totalmem() / 1024 / 1024).toFixed(0)}MB`);
+
 client.initialize().catch(err => {
   console.error('❌ فشل تشغيل البوت:', err.message);
+  console.error(`🧠 الرام وقت الفشل: متاح ${(os.freemem() / 1024 / 1024).toFixed(0)}MB / إجمالي ${(os.totalmem() / 1024 / 1024).toFixed(0)}MB`);
   process.exit(1);
 });
 
