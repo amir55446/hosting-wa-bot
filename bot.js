@@ -14,7 +14,7 @@ const https = require('https');
 // ⚙️  إعدادات البوت
 // ============================================================
 // ✅ Railway: اضبط المتغيرات دي في Settings → Variables
-const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201070645088').replace(/[^0-9]/g, '');
+const BOT_NUMBER    = (process.env.BOT_NUMBER    || '201038075394').replace(/[^0-9]/g, '');
 const BROKER_NUMBER = (process.env.BROKER_NUMBER || '201157784851').replace(/[^0-9]/g, '');
 
 const CONFIG = {
